@@ -1,0 +1,81 @@
+version: '3.8'
+
+services:
+  mongodb:
+    image: mongo:6
+    container_name: mongodb
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_data:/data/db
+
+  database-service:
+    build:
+      context: ./database-service
+    container_name: database-service
+    ports:
+      - "3001:3001"
+    depends_on:
+      - mongodb
+    environment:
+      - MONGO_URI=mongodb://mongodb:27017
+
+  movies-service:
+    build:
+      context: ./movies-service
+    container_name: movies-service
+    ports:
+      - "3002:3002"
+    depends_on:
+      - database-service
+
+  frontend-service:
+    build:
+      context: ./frontend-service
+    container_name: frontend-service
+    ports:
+      - "3003:3003"
+    depends_on:
+      - movies-service
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: rabbitmq
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    depends_on:
+      - database-service
+
+  historial-service:
+    build:
+      context: ./historial-service
+    container_name: historial-service
+    ports:
+      - "3004:3004"
+    depends_on:
+      - frontend-service
+      - rabbitmq
+    environment:
+      - RABBITMQ_HOST=rabbitmq
+      - RABBITMQ_PORT=5672
+      - RABBITMQ_USER=user
+      - RABBITMQ_PASSWORD=password
+      - QUEUE_NAME=movies_queue
+
+  recomendador-service:
+    build:
+      context: ./recomendador-service
+    container_name: recomendador-service
+    ports:
+      - "3005:3005"
+    depends_on:
+      - database-service
+      - rabbitmq
+    environment:
+      - DATABASE_URL=http://database-service:3001/movies
+      - RABBITMQ_HOST=rabbitmq
+      - RABBITMQ_PORT=5672
+
+volumes:
+  mongodb_data:

@@ -1,0 +1,25 @@
+# Usa una imagen base de Node.js
+FROM node:18
+
+# Establece el directorio de trabajo dentro del contenedor
+WORKDIR /app
+
+# Copia el archivo package.json y package-lock.json
+COPY package*.json ./
+
+# Instala las dependencias
+RUN npm install
+
+# Copia el resto del código fuente
+COPY . .
+
+# Instalar el script wait-for-it para esperar que RabbitMQ esté listo
+RUN apt-get update && apt-get install -y curl
+RUN curl -o /usr/local/bin/wait-for-it.sh https://raw.githubusercontent.com/vishnubob/wait-for-it/master/wait-for-it.sh
+RUN chmod +x /usr/local/bin/wait-for-it.sh
+
+# Expone el puerto donde el servicio escucha
+EXPOSE 3004
+
+# Comando para iniciar el servicio, usando wait-for-it para esperar a RabbitMQ
+CMD /usr/local/bin/wait-for-it.sh rabbitmq:5672 --timeout=30 -- npm start

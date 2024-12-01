@@ -1,0 +1,25 @@
+# Usar una imagen base de Node.js
+FROM node:16
+
+# Establecer el directorio de trabajo en el contenedor
+WORKDIR /usr/src/app
+
+# Copiar los archivos de la aplicación al contenedor
+COPY package*.json ./
+
+# Instalar las dependencias
+RUN npm install
+
+# Copiar el resto de los archivos del servicio al contenedor
+COPY . .
+
+# Instalar el script wait-for-it para esperar que los servicios estén listos
+RUN apt-get update && apt-get install -y curl
+RUN curl -o /usr/local/bin/wait-for-it.sh https://raw.githubusercontent.com/vishnubob/wait-for-it/master/wait-for-it.sh
+RUN chmod +x /usr/local/bin/wait-for-it.sh
+
+# Exponer el puerto en el que el servicio estará corriendo
+EXPOSE 3005
+
+# Comando para ejecutar el servicio, usando wait-for-it para esperar a database-service y rabbitmq
+CMD /usr/local/bin/wait-for-it.sh database-service:3001 --timeout=50 -- /usr/local/bin/wait-for-it.sh rabbitmq:5672 --timeout=30 -- node index.js

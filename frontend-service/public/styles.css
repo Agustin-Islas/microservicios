@@ -1,0 +1,134 @@
+/* Estilos generales */
+body {
+  font-family: 'Arial', sans-serif;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #121212; /* Fondo oscuro para el cuerpo */
+  color: #fff; /* Color de texto claro */
+}
+
+/* Contenedor principal */
+.container {
+  max-width: 1200px;
+  width: 100%;
+  padding: 40px;
+  background-color: #1f1f1f; /* Fondo oscuro para el contenedor */
+  border-radius: 15px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+}
+
+/* Encabezado */
+header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* Título Popular Movies */
+.popular-movies-title {
+  text-align: center;
+  font-size: 3rem;
+  font-weight: bold;
+  color: #e74c3c; /* Rojo elegante para el título */
+  margin-bottom: 30px; /* Separación con el grid */
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-family: 'Helvetica Neue', sans-serif;
+}
+
+/* Botón de refresco */
+#refresh-button {
+  background-color: #e74c3c; /* Rojo igual que el título */
+  color: white;
+  border: none;
+  margin-bottom: 30px; /* Separación con el grid */
+  border-radius: 8px;
+  padding: 12px 20px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  font-size: 1.2rem;
+}
+
+#refresh-button:hover {
+  background-color: #c0392b; /* Rojo más oscuro al hacer hover */
+  transform: scale(1.05);
+}
+
+/* Estilos para el contenedor principal de películas y recomendaciones */
+main {
+  display: flex;
+  gap: 30px;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 30px; /* Separación con el panel de recomendaciones */
+}
+
+/* Estilos para el grid de películas */
+.movies-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* 4 columnas en lugar de 3 */
+  gap: 20px;
+  flex-grow: 1;
+}
+
+.movies-grid img {
+  width: 100%;
+  border-radius: 8px;
+  transition: transform 0.2s ease, box-shadow 0.3s ease;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2); /* Sombra suave */
+}
+
+.movies-grid img:hover {
+  transform: scale(1.05);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4); /* Sombra más pronunciada al hacer hover */
+}
+
+/* Estilos para el contenedor de recomendaciones */
+.recommendations {
+  width: 280px;
+  background: #2c3e50; /* Fondo oscuro para el panel */
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2); /* Sombra para resaltar */
+}
+
+.recommendations h2 {
+  margin-bottom: 20px;
+  font-size: 1.8rem;
+  color: #e74c3c; /* Rojo para el título dentro de recomendaciones */
+  font-weight: 600;
+}
+
+.recommendations p {
+  color: #e74c3c; /* Rojo para los párrafos dentro de recomendaciones */
+}
+
+/* Estilos para las imágenes dentro de recomendaciones */
+.recommendations img {
+  width: 100%;
+  border-radius: 8px;
+  transition: transform 0.2s ease, box-shadow 0.3s ease;
+}
+
+.recommendations img:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2); /* Sombra para las imágenes en recomendaciones */
+}
+
+/* Estilos para el overlay */
+#movie-overlay {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%); /* Centrado horizontal */
+  background-color: rgba(0, 0, 0, 0.8); /* Fondo semitransparente */
+  color: white;
+  display: none; /* Oculto inicialmente */
+  text-align: center;
+  z-index: 10;
+  padding: 20px;
+  cursor: pointer; /* Para indicar que se puede cerrar */
+  width: 80%; /* Ajustar el ancho según sea necesario */
+}

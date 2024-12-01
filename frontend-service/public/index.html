@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MOVIES CATALOG</title>
+  <link rel="stylesheet" href="styles.css">
+   <!-- Agregar favicon -->
+   <link rel="icon" href="favicon.webp" type="image/webp">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+        <!-- Título Popular Movies, colocado antes del grid de películas -->
+        <h1 class="popular-movies-title">Popular movies</h1>
+      </div>
+    </header>
+    
+    <button id="refresh-button" style="padding: 10px 20px; font-size: 16px; cursor: pointer;">Refresh</button>
+
+    <main>
+      <!-- Mosaico de películas -->
+      <section class="movies-grid" id="movies-grid">
+        <!-- Aquí se llenará con JavaScript -->
+      </section>
+
+      <!-- Panel de recomendaciones -->
+      <aside class="recommendations">
+        <h2>Recommended for You</h2>
+        <div id="recommendations">
+        </div>
+      </aside>
+    </main>
+  </div>
+
+  <!-- Contenedor para el overlay -->
+  <div id="movie-overlay">
+    <!-- El overlay será inyectado por JS -->
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
